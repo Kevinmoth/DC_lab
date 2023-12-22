@@ -39,7 +39,7 @@ async def salir(ctx):
 
     
 
-client.run("MTE4MjgyNTYxNjQxNjk2ODcxNA.GM4oX0.8G1simtGMjxq_1KiWp8dShd_5x84Pa5AjHmHDU")
+client.run("MTE4MjgyNTYxNjQxNjk2ODcxNA.GM4oXKiWp8dShd_5x84Pa5AjHmHDU")
 
 
 
