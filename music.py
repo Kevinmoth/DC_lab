@@ -36,6 +36,17 @@ async def unir(ctx):
         await ctx.send(f'Bot unido al canal de voz: {channel.name}')
     else:
         await ctx.send('No se pudo encontrar el canal de voz.')
+	    
+@client.command()
+async def play(ctx):
+    if ctx.author.voice:
+        channel = ctx.author.voice.channel
+        voice_channel = await channel.connect()
+        audio_file = "music.ogg"
+        voice_channel.play(discord.FFmpegPCMAudio(audio_file, executable="ffmpeg", options="-vn -b:a 192k"), after=lambda e: print('done', e))
+        await ctx.send(f'ChillBot entro al canal: {channel.name}')
+    else:
+        await ctx.send('Debes estar en un canal de voz para usar este comando.')
         
 @client.command()
 async def salir(ctx):
