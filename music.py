@@ -44,7 +44,7 @@ async def play(ctx):
         voice_channel = await channel.connect()
         audio_file = "music.ogg"
         voice_channel.play(discord.FFmpegPCMAudio(audio_file, executable="ffmpeg", options="-vn -b:a 192k"), after=lambda e: print('done', e))
-        await ctx.send(f'ChillBot entro al canal: {channel.name}')
+        await ctx.send(f'ChillBot entro al canal: {channel.name} :mate: ')
     else:
         await ctx.send('Debes estar en un canal de voz para usar este comando.')
         
