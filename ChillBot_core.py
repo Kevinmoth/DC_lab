@@ -28,9 +28,7 @@ async def unir(ctx):
     
     channel = client.get_channel(channel_id)
     if channel:
-        # Unir al bot al canal de voz
         voice_channel = await channel.connect()
-        # Reproducir el archivo de audio en bucle
         audio_file = "music.ogg"  
         voice_channel.play(discord.FFmpegPCMAudio(audio_file, executable="ffmpeg", options="-vn -b:a 192k"), after=lambda e: print('done', e))
         await ctx.send(f'Bot unido al canal de voz: {channel.name}')
@@ -50,7 +48,6 @@ async def play(ctx):
         
 @client.command()
 async def salir(ctx):
-    # Desconectar al bot del canal
     await ctx.voice_client.disconnect()
     await ctx.send('Bot desconectado del canal de voz.')
 
