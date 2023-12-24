@@ -8,13 +8,13 @@ bot = commands.Bot(command_prefix='x', intents=discord.Intents.default())
 guild_id = 765279392137871400
 channel_id = 906646235904082012
 
-frases = ["Frase 1", "Frase 2", "Frase 3", "Frase 4"]  # frases o palabrasque se enviaran de manera aleatoria
+frases = ["Frase 1", "Frase 2", "Frase 3", "Frase 4"]  # frases o palabrasque se van a enviar
 
 @bot.event
 async def on_ready():
     await bot.wait_until_ready()
     print("Conectado")
-    # Iniciar el temporizador para ejecutar la función cada 2 minutos
+    
     responder_temporizador.start()
 
 @tasks.loop(minutes=2)
