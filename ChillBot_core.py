@@ -13,6 +13,7 @@ intents.guilds = True
 
 current_song_index = 0
 playlist = []
+gif_link = "https://cdn.discordapp.com/emojis/936786898905628702.gif?size=96&quality=lossless"
 
 client = commands.Bot(command_prefix=".", intents= discord.Intents.all())
 
@@ -24,10 +25,11 @@ async def on_ready():
 	await client.change_presence(activity=game)
     
     
-target_channel_id = 937112558094155847
+target_channel_id = 1149127509657526362
+
 
 @client.command()
-async def play_youtube(ctx, *, query_or_url):
+async def play_(ctx, *, query_or_url):
     global playlist
     voice_channel = ctx.author.voice.channel if ctx.author.voice else None
 
@@ -39,14 +41,14 @@ async def play_youtube(ctx, *, query_or_url):
             voice_client = await voice_channel.connect()
 
         ydl_opts = {
-			'format': 'bestaudio/best',
-    		'postprocessors': [{
-        		'key': 'FFmpegExtractAudio',
-        		'preferredcodec': 'mp3',  # Cambiar a un codec más comprimido, como 'mp3'
-        		'preferredquality': '64',  # Reducir la calidad a 64kbps
-    	}],
-    		'outtmpl': 'song.mp3',
-}
+            'format': 'bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',  # Cambiar a un codec más comprimido, como 'mp3'
+                'preferredquality': '64',  # Reducir la calidad a 64kbps
+            }],
+            'outtmpl': 'song.mp3',
+        }
 
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             if "youtube.com" in query_or_url or "youtu.be" in query_or_url:
@@ -61,11 +63,19 @@ async def play_youtube(ctx, *, query_or_url):
             playlist.append(url)
             await ctx.send(f' :mate: Canción añadida a la lista de reproducción: {title}')
 
+            # Reacciona al mensaje del usuario con un emoji personalizado del servidor
+            try:
+                emoji_id = 951309958727753788  # Reemplaza con la ID del emoji "matefrog"
+                emoji = client.get_emoji(emoji_id)
+                if emoji:
+                    await ctx.message.add_reaction(emoji)
+            except:
+                pass
+
             if not ctx.voice_client.is_playing() and not ctx.voice_client.is_paused():
                 await play_next(ctx, ctx.voice_client)
     else:
         await ctx.send(' :mate: Debes estar en un canal de voz para usar este comando.')
-
 
 
 
@@ -160,8 +170,5 @@ async def salir(ctx):
     await ctx.voice_client.disconnect()
     await ctx.send('Bot desconectado del canal de voz.')
 
-
-client.run("Token")
-
-
+client.run("token")
 
