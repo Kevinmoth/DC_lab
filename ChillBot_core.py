@@ -21,7 +21,7 @@ client = commands.Bot(command_prefix=".", intents= discord.Intents.all())
 async def on_ready():
 	print(f"{client.user.name} está iniciando sesión ")
 	game = discord.Game("¡Guanabana!")
-    # Establecer el estado
+    
 	await client.change_presence(activity=game)
     
     
@@ -44,8 +44,8 @@ async def play_(ctx, *, query_or_url):
             'format': 'bestaudio/best',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',  # Cambiar a un codec más comprimido, como 'mp3'
-                'preferredquality': '64',  # Reducir la calidad a 64kbps
+                'preferredcodec': 'mp3',  
+                'preferredquality': '64',  
             }],
             'outtmpl': 'song.mp3',
         }
@@ -63,9 +63,8 @@ async def play_(ctx, *, query_or_url):
             playlist.append(url)
             await ctx.send(f' :mate: Canción añadida a la lista de reproducción: {title}')
 
-            # Reacciona al mensaje del usuario con un emoji personalizado del servidor
             try:
-                emoji_id = 951309958727753788  # Reemplaza con la ID del emoji "matefrog"
+                emoji_id = 951309958727753788  
                 emoji = client.get_emoji(emoji_id)
                 if emoji:
                     await ctx.message.add_reaction(emoji)
@@ -116,7 +115,7 @@ async def play(ctx):
             else:
                 await ctx.send(f'Archivo no encontrado: {audio_file}')
 
-        #await voice_channel.disconnect()
+       
     else:
         await ctx.send('Debes estar en un canal de voz para usar este comando.')
         
@@ -128,20 +127,20 @@ async def next(ctx):
         current_song_index += 1
 
         if ctx.voice_client.is_playing():
-            # Detener la reproducción actual antes de pasar a la siguiente canción
+           
             ctx.voice_client.stop()
 
-        # Verificar si current_song_index excede los límites de la lista
+      
         if current_song_index < len(playlist):
             next_song = playlist[current_song_index]
 
-            # Reproducir la siguiente canción
+          
             ctx.voice_client.play(
                 discord.FFmpegPCMAudio(next_song, executable="ffmpeg", options="-vn -b:a 192k -t 600"),
                 after=lambda e: print('done', e)
             )
         else:
-            # Si excede, restablecer a 0
+           
             current_song_index = 0
     else:
         await ctx.send('No hay más canciones en la lista.')
@@ -151,14 +150,13 @@ async def next(ctx):
     
 @client.command()
 async def unir(ctx):
-    channel_id = 937112558094155847  # ID del canal de voz al que quieres unirte
-    # Obtener el objeto de canal de voz
+    channel_id = 937112558094155847  
+    
     channel = client.get_channel(channel_id)
     if channel:
-        # Unir al bot al canal de voz
+        
         voice_channel = await channel.connect()
-        # Reproducir un archivo de audio en bucle
-        audio_file = "music.ogg"  # Reemplaza con el nombre de tu archivo .ogg
+        audio_file = "music.ogg"
         voice_channel.play(discord.FFmpegPCMAudio(audio_file, executable="ffmpeg", options="-vn -b:a 192k"), after=lambda e: print('done', e))
         await ctx.send(f'ChillBot entro al canal : {channel.name}')
     else:
@@ -166,7 +164,6 @@ async def unir(ctx):
         
 @client.command()
 async def salir(ctx):
-    # Desconectar al bot del canal de voz actual
     await ctx.voice_client.disconnect()
     await ctx.send('Bot desconectado del canal de voz.')
 
