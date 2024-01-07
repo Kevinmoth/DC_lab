@@ -137,6 +137,7 @@ async def unir(ctx):
     else:
         await ctx.send('No se pudo encontrar el canal de voz.')
 
+
 @client.command()
 async def salir(ctx):
     await ctx.voice_client.disconnect()
