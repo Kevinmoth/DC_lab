@@ -1,1 +1,1 @@
-Compuilacion de scrips para Bots/automatizacion, principalmente enfocado en discord.
+Rejunte de ideas, proyectos y partes de scripts para futuros trabajos
