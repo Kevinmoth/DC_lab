@@ -6,6 +6,8 @@ import string
 
 #GENERADOR DE NITRO - By  MATECITOS
 #Solo funciona hasta el 07/06/24
+#Podes ejecutarlo desde replit.com/@jeta0021/Generador-Nitro#main.py
+
 
 def generar_cadena_aleatoria(longitud):
     caracteres = string.ascii_letters + string.digits
